@@ -2,6 +2,7 @@ import React from 'react'
 import Container from 'react-bootstrap/esm/Container'
 import { useLoaderData, useParams } from 'react-router-dom'
 import Usertabs from '../components/Usertabs'
+import { UserProps } from '../types'
 
 
 export const userDetailLoader = async ({ params }: UserProps) => {
