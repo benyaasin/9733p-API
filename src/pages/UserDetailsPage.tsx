@@ -5,7 +5,7 @@ import Usertabs from '../components/Usertabs'
 import { UserProps } from '../types'
 
 
-export const userDetailLoader = async ({ params }: UserProps) => {
+export const userDetailLoader = async ({ params }: { params: { id: string } }) => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/users/${params.id}`)
   const userDetails = await response.json()
   return userDetails
@@ -13,7 +13,7 @@ export const userDetailLoader = async ({ params }: UserProps) => {
 
 function UserDetailsPage() {
   const userDetails = useLoaderData() as UserProps
-  const { userId } = useParams()
+  const { id: userId } = useParams<{ id: string }>()
   return (
     <>
       <Container>
@@ -25,13 +25,11 @@ function UserDetailsPage() {
         <p>Website: {userDetails.website}</p>
 
       </Container>
-      <Usertabs {
-        ...{
-          postLink: `/users/${userId}/posts`,
-          albumsLink: `/users/${userId}/albums`,
-          todoLink: `/users/${userId}/todo`
-        }
-      } />
+      <Usertabs 
+        postLink={`/users/${userId}/posts`}
+        albumsLink={`/users/${userId}/albums`}
+        todoLink={`/users/${userId}/todo`}
+      />
     </>
 
   )
